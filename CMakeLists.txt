@@ -4,9 +4,14 @@ project(HelloDPDK)
 option(USER "Option for compiling user code" OFF)
 option(CONTROLLER "Option for compiling test code" OFF)
 
+find_package(PkgConfig REQUIRED)
+pkg_search_module(DPDK REQUIRED libdpdk)
+
 if (${CONTROLLER})
     message(STATUS "Compile Test Code")
     add_executable(test test.cpp)
+    target_link_libraries(test PUBLIC ${DPDK_LIBRARIES})
+    target_include_directories(test PUBLIC ${DPDK_INCLUDE_DIRS})
 
     target_compile_features(test PUBLIC cxx_std_17)
 endif()
@@ -27,4 +32,6 @@ if (${USER})
     target_compile_features(client PUBLIC cxx_std_17)
 
     target_link_libraries(client PUBLIC router)
+    target_link_libraries(client PUBLIC ${DPDK_LIBRARIES})
+    target_include_directories(client PUBLIC ${DPDK_INCLUDE_DIRS})
 endif()

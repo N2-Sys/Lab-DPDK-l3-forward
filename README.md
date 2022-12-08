@@ -5,13 +5,15 @@
 > Note: The version of DPDK is 21.11 LTS
 
 In order to be able to simulate the environment of multiple different machines, we need to create two different virtual machines using the Virtual Machine tool.
-We will set up N+1 NICs on the first virtual machine to simulate N different endpoint machines and N+1 NICs on the second machine to simulate an N port L3 router.
-The extra port is used to test the program for interaction.
+We will set up N+1 NICs on the first virtual machine (Machine No.1) to simulate N different endpoint machines and N+1 NICs on the second virtual machine (Machine No.2) to simulate an N port L3 router.
+The extra port is used to interact with the test program.
 
-For each terminal machine and the network port on the second machine, you need to create N virtual networks, each containing one NIC on machine number one and one NIC on machine number two.
+For each NIC of the N NICs on Machine No.1 and the network port on Machine No.2, you need to create N virtual networks, each containing one NIC on Machine No.1 and one NIC on Machine No.2.
 
-For the NIC used to emulate N machines on machine one, its IP would be set in the 10.1.1.0/24 IP domain by test program automatically. (**You should not use any address from this region and N should not exceed 255**)
-Set the IP of the NIC used to test program interactions to 10.1.0.1. On machine number two, set the IP of the NIC used to test program interactions to 10.1.0.2.
+For the NIC used to emulate N machines on Machine No.1, its IP would be set in the 10.1.1.0/24 IP domain by test program automatically. (**You should not use any address from this region and N should not exceed 255**)
+Set the IP of the NIC used to test program interactions to 10.1.0.1. On Machine No.2, set the IP of the NIC used to test program interactions to 10.1.0.2.
+
+> The N NICs on Machine No.1 and N NICs on Machine No.2 should be set to use for DPDK
 
 ## Implement a simple L3 forward
 
