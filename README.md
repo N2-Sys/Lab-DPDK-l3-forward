@@ -10,7 +10,7 @@ The extra port is used to test the program for interaction.
 
 For each terminal machine and the network port on the second machine, you need to create N virtual networks, each containing one NIC on machine number one and one NIC on machine number two.
 
-For the NIC used to emulate N machines on machine one, its IP should be set in the 10.1.1.0/24 IP domain.
+For the NIC used to emulate N machines on machine one, its IP would be set in the 10.1.1.0/24 IP domain by test program automatically. (**You should not use any address from this region and N should not exceed 255**)
 Set the IP of the NIC used to test program interactions to 10.1.0.1. On machine number two, set the IP of the NIC used to test program interactions to 10.1.0.2.
 
 ## Implement a simple L3 forward
@@ -65,7 +65,7 @@ Then start the router program on Machine No.2 to execute your code.
 
 ``` bash
 cd build
-./client
+./client <PARAMETERS TO DPDK>
 ```
 
 The results and error messages will be displayed in the terminal on Machine No.1.
