@@ -13,9 +13,21 @@ For each terminal machine and the network port on the second machine, you need t
 For the NIC used to emulate N machines on machine one, its IP should be set in the 10.1.1.0/24 IP domain.
 Set the IP of the NIC used to test program interactions to 10.1.0.1. On machine number two, set the IP of the NIC used to test program interactions to 10.1.0.2.
 
-## Compile Test tools
+## Implement a simple L3 forward
+
+You should implement your code in `yourcode.cpp` or `yourcode.c`.
+We support both C and C++.
+
+**We will use `yourcode.cpp` as defualt option, if you want to use C, you should just create a `yourcode.c` and delete the file named `yourcode.cpp`**
+
+## Compile
+
+In this section we will tell you how to compile your code and the test program.
 
 ### On Machine No.1
+
+This step may consume time.
+Because we will get gtest framework from `Github` automatically.
 
 ``` bash
 git clone git@github.com:N2-Sys/Lab-DPDK-l3-forward.git
