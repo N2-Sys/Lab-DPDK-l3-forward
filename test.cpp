@@ -2,6 +2,26 @@
 #include <cassert>
 
 #include "common.hpp"
+#include "gtest/gtest.h"
+
+#include <fstream>
+
+static uint32_t N;
+
+#define MAXN 32
+
+class NIC{
+public:
+    NIC() {
+        idx = this - NICs;
+    }
+
+    void init() {
+        assert(0 && "Not imp");
+    }
+
+    int idx;
+} NICs[MAXN];
 
 class {
 public:
@@ -65,9 +85,48 @@ int main(int argc, char** argv) {
     }
     std::string option = std::string(argv[1]);
     if (option == "testcase") {
+        argc --;
+        ::testing::InitGoogleTest(&argc, argv + 1);
         router.init();
+        
+        /** Read settings **/
+        std::ifstream fin;
+        fin.open("../test_setting", std::ios_base::in);
+        assert(fin.is_open() && "Failed to open test_setting");
+        {
+            std::string opt;
+            while (fin >> opt) {
+                if (opt == "N")
+                    assert ((fin >> N) && "Failed to read N");
+                else
+                    assert (0 && "Unknown test_settings option");
+            }
+        }
+        fin.close();
+        
+        /** validate options **/
+        assert(N <= MAXN && "N should <= MAXN (32)");
+        
+        /** Init local NICs **/
+        for (int i = 0; i < N; i ++) {
+            assert(0 && "Not imp");
+        }
+
+        /** Send settings to peer **/
+        for (int i = 0; i < N; i ++) {
+            router.addLPM(inet_addr(("10.1.1." + std::to_string(i + 1)).c_str()), 32, i);
+        }
+
+        /** Load remote settings **/
+        for (int i = 0; i < N; i ++) {
+            assert(0 && "Not imp");
+        }
+
+        return RUN_ALL_TESTS();
     } else if (option == "interactive") {
         router.init();
+        assert(0 && "Interactive mode is working in progress");
+        return 0;
     } else {
         assert(0 && "Unknown option");
     }

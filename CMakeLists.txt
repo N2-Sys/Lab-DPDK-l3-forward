@@ -8,16 +8,29 @@ find_package(PkgConfig REQUIRED)
 pkg_search_module(DPDK REQUIRED libdpdk)
 
 if (${CONTROLLER})
-    message(STATUS "Compile Test Code")
+    message(STATUS "Fetching GTest")
+    include(FetchContent)
+    FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest.git
+    GIT_TAG release-1.12.1
+    )
+    set(gtest_force_shared_crt ON)
+    FetchContent_MakeAvailable(googletest)
+
+    include(GoogleTest)
+
+    message(STATUS "Will compile Test Code")
     add_executable(test test.cpp)
     target_link_libraries(test PUBLIC ${DPDK_LIBRARIES})
     target_include_directories(test PUBLIC ${DPDK_INCLUDE_DIRS})
+    target_link_libraries(test PUBLIC GTest::gtest_main)
 
     target_compile_features(test PUBLIC cxx_std_17)
 endif()
 
 if (${USER})
-    message(STATUS "Compile User Code")
+    message(STATUS "Will compile User Code")
     if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/yourcode.cpp)
         add_library(router ${CMAKE_CURRENT_SOURCE_DIR}/yourcode.cpp)
         message(STATUS "C++ Mode")
