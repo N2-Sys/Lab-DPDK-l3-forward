@@ -90,6 +90,6 @@ The following command is available:
 * `add_rule`: `add_rule 10.0.0.0 24 1` adds `forward 10.0.0.0/24 to port 1` to route table
 * `del_rule`: `del_rule 10.0.0.0 24` deletes entry in route table that matches `forward 10.0.0.0/24 to port *`
 
-Then you can test the connectivity by pinging or by running iperf on different machines and other tools.
+After adding the correct route entries, you can test the connectivity by pinging or by running iperf on different machines and other tools.
 
 > Enjoy our lab
