@@ -27,6 +27,7 @@ if (${CONTROLLER})
     target_link_libraries(test PUBLIC GTest::gtest_main)
 
     target_compile_features(test PUBLIC cxx_std_17)
+    target_compile_options(test PUBLIC -mssse3)
 endif()
 
 if (${USER})
@@ -47,4 +48,5 @@ if (${USER})
     target_link_libraries(client PUBLIC router)
     target_link_libraries(client PUBLIC ${DPDK_LIBRARIES})
     target_include_directories(client PUBLIC ${DPDK_INCLUDE_DIRS})
+    target_compile_options(client PUBLIC -mssse3)
 endif()
