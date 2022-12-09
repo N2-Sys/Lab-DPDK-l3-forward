@@ -184,6 +184,27 @@ private:
     int fd;
 } router;
 
+TEST(main, basic) {
+    for (int i = 0; i < N; i ++) {
+        NICs[0]->sendIP("0.0.0.0", ("10.1.1." + std::to_string(i + 1)).c_str(),
+            "123123", 6);
+        char ret[1600];
+        bool found = false;
+        while (!found) {
+            for (int j = 0; j < N; j ++) {
+                auto len = NICs[j]->read(ret);
+                if (len < 14 + 20 + 6)
+                    continue;
+                char* ptr = ret + 34;
+                if (memcmp(ptr, "123123", 6) == 0) {
+                    found = true;
+                    EXPECT_EQ(ip2nic[i], j);
+                }
+            }
+        }
+    }
+}
+
 MessageSendResult Message::sendTo(int fd) {
     this->length = htonl(static_cast<uint32_t>(sizeof(Message)));
     auto all = sizeof(Message);
